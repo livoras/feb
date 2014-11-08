@@ -19,6 +19,9 @@ module.exports = (grunt)->
             assets:
                 src: "assets/**/*"
                 dest: "dist/"
+            lib:
+                src: "lib/**/*"
+                dest: "dist/"
 
         browserify: 
             dev: 

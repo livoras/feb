@@ -1,2 +1,3 @@
-path = require "path"
-console.log path
+anotherModule = require "./another-module.coffee"
+
+anotherModule.changeH1Color()
