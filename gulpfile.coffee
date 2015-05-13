@@ -3,6 +3,8 @@ del = require 'del'
 coffee = require 'gulp-coffee'
 less = require 'gulp-less'
 browserify = require 'gulp-browserify'
+livereload = require 'gulp-livereload'
+extReplace = require 'gulp-ext-replace'
 
 paths = 
   src: ['src/**/*']
@@ -25,15 +27,19 @@ gulp.task 'coffee', ->
         transform: ['coffeeify'],
         extensions: ['.coffee']
       .on 'error', logError
+      .pipe extReplace '.js'
       .pipe gulp.dest 'bin/scripts/'
+      .pipe livereload()
 
 gulp.task 'less', ->
   gulp.src paths.stylesheets
       .pipe less()
       .on 'error', logError
       .pipe gulp.dest 'bin/stylesheets/'
+      .pipe livereload()
 
 gulp.task 'watch', ->      
+  livereload.listen()
   gulp.watch 'src/scripts/**/*', ['coffee']
   gulp.watch 'src/stylesheets/**/*', ['less']
 
