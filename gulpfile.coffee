@@ -13,6 +13,7 @@ paths =
   stylesheets: ['src/stylesheets/*.less']
   testScripts: ['test/test.coffee']
   testRunner: ['test/runner.html']
+  copy: ['src/pages/*.html', 'lib/**/*', 'assets/**/*']
 
 logError = (e)->
   console.log e
@@ -21,6 +22,21 @@ logError = (e)->
 # Remove previously compiled files
 gulp.task 'clean', (cb)->
   del.sync('bin')
+
+# Copy pages' html  
+gulp.task 'copy', ->
+  gulp.src paths.copy[0]
+      .pipe gulp.dest 'bin/'
+
+  gulp.src paths.copy[1]
+      .pipe gulp.dest 'bin/lib'
+
+  gulp.src paths.copy[2]
+      .pipe gulp.dest 'bin/assets'
+
+gulp.task 'lib', ->
+  gulp.src paths.lib
+      .pipe gulp.dest 'bin/lib'
 
 # Compile coffeeScript to JavaScript and leverage Browserify
 gulp.task 'coffee', -> 
@@ -61,8 +77,9 @@ gulp.task 'test', ['test-coffee'], ->
 # Wathc files to make automatically compile
 gulp.task 'watch', ->      
   livereload.listen()
+  gulp.watch 'src/*.html', ['html']
   gulp.watch 'src/scripts/**/*', ['coffee', 'test']
   gulp.watch 'src/stylesheets/**/*', ['less']
   gulp.watch 'test/**/*', ['test']
 
-gulp.task 'default', ['clean', 'coffee', 'less', 'test', 'watch']
+gulp.task 'default', ['clean', 'copy', 'coffee', 'less', 'test', 'watch']
