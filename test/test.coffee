@@ -1,7 +1,2 @@
-chai = require "chai"
-sinonChai = require "sinon-chai"
-
-chai.should()
-chai.use(sinonChai)
-
-require "./specs/sample.coffee"
+# Require the specs you want to run here.
+require "./specs/sample"
