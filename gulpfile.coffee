@@ -9,6 +9,7 @@ mochaPhantomJS = require 'gulp-mocha-phantomjs'
 uglify = require 'gulp-uglify'
 uglifycss = require 'gulp-uglifycss'
 minifyHTML = require 'gulp-minify-html'
+connect = require 'gulp-connect'
 
 paths = 
   src: ['src/**/*']
@@ -16,7 +17,7 @@ paths =
   stylesheets: ['src/stylesheets/*.less']
   testScripts: ['test/test.coffee']
   testRunner: ['test/runner.html']
-  copy: ['src/pages/*.html', 'lib/**/*', 'assets/**/*']
+  copy: ['src/*.html', 'lib/**/*', 'assets/**/*']
 
 logError = (e)->
   console.log e
@@ -110,4 +111,15 @@ gulp.task 'build', ->
   gulp.src paths.copy[2]
       .pipe gulp.dest 'dist/assets'
 
-gulp.task 'default', ['clean', 'copy', 'coffee', 'less', 'test', 'watch']
+gulp.task 'connect', ->
+  connect.server()
+
+gulp.task 'default', [
+  'clean' 
+  'copy'
+  'coffee'
+  'less'
+  'connect'
+  'test'
+  'watch'
+]

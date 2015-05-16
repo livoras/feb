@@ -1,7 +1,7 @@
-feb
-===
+FEB(Front-End-Boilerplate)
+================================
 
-Sample Front End Development Workflow.
+Simple front-end development workflow. You can use it for a fast and easy kick-off of a front-end project or configurate it to your own workflow farther.
 
 Including,
 
