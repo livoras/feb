@@ -27,7 +27,7 @@ logError = (e)->
 gulp.task 'clean', (cb)->
   del.sync('bin')
 
-# Copy pages' html  
+# Copy static resources
 gulp.task 'copy', ->
   gulp.src paths.copy[0]
       .pipe gulp.dest 'bin/'
@@ -35,6 +35,11 @@ gulp.task 'copy', ->
       .pipe gulp.dest 'bin/lib'
   gulp.src paths.copy[2]
       .pipe gulp.dest 'bin/assets'
+
+gulp.task 'html', ->
+  gulp.src paths.copy[0]
+      .pipe gulp.dest 'bin/'
+      .pipe livereload()
 
 gulp.task 'lib', ->
   gulp.src paths.lib
