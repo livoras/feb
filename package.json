@@ -30,6 +30,7 @@
   },
   "author": "Livoras",
   "license": "MIT",
-  "bugs": {},
-  "dependencies": {}
+  "dependencies": {
+    "react": "^0.13.3"
+  }
 }
