@@ -6,11 +6,13 @@ var del = require("del")
 var browserify = require('gulp-browserify')
 var livereload = require('gulp-livereload')
 var connect = require('gulp-connect')
+var rest = require('connect-rest')
 var babelify = require("babelify")
 
 var uglify = require('gulp-uglify')
 var minifyHTML = require('gulp-minify-html')
 var uglifycss = require ('gulp-uglifycss')
+var mocks = require("./mocks")
 
 var src = {
   root: "src",
@@ -42,10 +44,10 @@ function logError(err) {
  * Default Gulp Task.
  */
 gulp.task("default", [
-  "clean", 
+  "clean",
   "copy",
   "html",
-  "styles", 
+  "styles",
   "scripts",
   "connect",
   "test",
@@ -66,7 +68,7 @@ gulp.task("copy", function() {
 gulp.task("html", function() {
   gulp.src(src.html)
     .pipe(gulp.dest(bin.html))
-    .pipe(livereload())
+    .on("end", reload)
 })
 
 gulp.task("styles", function() {
@@ -74,26 +76,34 @@ gulp.task("styles", function() {
     .pipe(less())
     .on("error", logError)
     .pipe(gulp.dest(bin.styles))
-    .pipe(livereload())
+    .on("end", reload)
 })
 
 gulp.task("scripts", function() {
   gulp.src(src.scripts, {})
     .pipe(browserify({
       debug: true,
-      transform: ["babelify"]
+      transform: ["babelify", "brfs"]
     }))
     .on("error", logError)
     .pipe(gulp.dest(bin.scripts))
-    .pipe(livereload())
+    .on("end", reload)
 })
 
 gulp.task("connect", function() {
-  connect.server({root: bin.root})
+  connect.server({
+    root: bin.root,
+    livereload: true,
+    middleware: function(connect, opt) {
+      return [rest.rester({
+        context: "/"
+      })]
+    }
+  })
+  mocks(rest)
 })
 
 gulp.task("test", function() {
-  // TODO
   console.log("should run test!..")
 })
 
@@ -101,12 +111,17 @@ gulp.task("watch", function() {
   livereload.listen()
   gulp.watch(src.html, ["html"])
   gulp.watch("src/styles/**/*", ["styles"])
+  gulp.watch("test/**/*", ["scripts", "test"])
   gulp.watch("src/scripts/**/*", ["scripts", "test"])
 })
 
+function reload() {
+  livereload.reload()
+}
+
 /**
  * Build for distribution.
- */ 
+ */
 gulp.task("build", function() {
   del.sync("build")
 
@@ -120,7 +135,7 @@ gulp.task("build", function() {
   gulp.src(src.html)
     .pipe(minifyHTML())
     .pipe(gulp.dest(dist.html))
-    
+
   // Build styles
   gulp.src(src.styles)
     .pipe(less())
@@ -131,7 +146,7 @@ gulp.task("build", function() {
   gulp.src(src.scripts)
     .pipe(browserify({
       debug: true,
-      transform: ["babelify"]
+      transform: ["babelify", "brfs"]
     }))
     .pipe(uglify())
     .pipe(gulp.dest(dist.scripts))
