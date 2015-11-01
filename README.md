@@ -1,7 +1,7 @@
 FEB
 =======================
 
-FEB for front-end boilerplate.
+FEB stands for front-end boilerplate.
 
 FEB is a boileroplate let you easily create front-end project and organize its structure for you and make you start coding fast. It provides basic gulp tasks. 
 
