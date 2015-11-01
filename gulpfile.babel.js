@@ -13,7 +13,7 @@ var uglify = require('gulp-uglify')
 var minifyHTML = require('gulp-minify-html')
 var uglifycss = require ('gulp-uglifycss')
 var mocks = require("./mocks")
-var mochaPhantomJS = require('gulp-mocha-phantomjs');
+//var mochaPhantomJS = require('gulp-mocha-phantomjs');
 
 var src = {
   root: "src",
