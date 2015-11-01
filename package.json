@@ -1,6 +1,6 @@
 {
-  "name": "feb-es6",
-  "version": "0.0.0",
+  "name": "feb",
+  "version": "0.1.0",
   "description": "mobile first responsive front end framework",
   "main": "index.js",
   "directories": {},
