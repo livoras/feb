@@ -13,27 +13,32 @@ var uglify = require('gulp-uglify')
 var minifyHTML = require('gulp-minify-html')
 var uglifycss = require ('gulp-uglifycss')
 var mocks = require("./mocks")
+var mochaPhantomJS = require('gulp-mocha-phantomjs');
 
 var src = {
   root: "src",
-  // 样式和逻辑都只编译入口文件
+  // Only compile entities files
   styles: "src/styles/*.less",
   scripts: "src/scripts/*.js",
-  html: "src/*.html"
+  html: "src/*.html",
+  test: "test/test.js",
+  runner: "test/runner.html"
 }
 
 var bin = {
   root: "bin",
   styles: "bin/styles",
   scripts: "bin/scripts",
-  html: "bin"
+  html: "bin",
+  test: "bin/test"
 }
 
 var dist = {
   root: "dist",
   styles: "dist/styles",
   scripts: "dist/scripts",
-  html: "dist"
+  html: "dist",
+  test: "dist/test.js"
 }
 
 function logError(err) {
@@ -104,7 +109,16 @@ gulp.task("connect", function() {
 })
 
 gulp.task("test", function() {
-  console.log("should run test!..")
+  gulp.src(src.test, {})
+    .pipe(browserify({
+      debug: true,
+      transform: ["babelify", "brfs"]
+    }))
+    .on("error", logError)
+    .pipe(gulp.dest(bin.test))
+    .on("end", function() {
+      // TODO MAKE TEST
+    })
 })
 
 gulp.task("watch", function() {
