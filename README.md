@@ -1,15 +1,9 @@
-FEB(Front-End-Boilerplate)
-================================
-
-Simple front-end development workflow. You can use it for a fast and smooth kick-off of a front-end project or configurate it to your own workflow farther.
+# FEB-ES6
+Front-end boilerplate in ES6, using ReactJS by default.
 
 New version FEB uses [Gulp](http://gulpjs.com/) for build system. And old version FEB which leverages on [Grunt](http://gruntjs.com/) can be found [here](https://github.com/livoras/feb/tree/grunt).
 
-**NOTE**: FEB in ES6 can be found [HERE](https://github.com/livoras/feb/tree/es6); I strongly recommand you to write JavaScript in ES6 right now.
-
-## Included Tools
-
-It includes
+## Tools
 
 **Build System**
 
