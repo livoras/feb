@@ -43,7 +43,7 @@ install feb command-line tool:
 create a project using command-line tool and installl dependencies:
 
     $ feb new hello-feb
-    $ cd hello-reb && npm install
+    $ cd hello-feb && npm install
 
 finally, just fly:
 
