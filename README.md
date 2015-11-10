@@ -34,7 +34,7 @@ FEB is using ES6 and ReactJS by default.
 
 Install global dependencies,
 
-    $ npm install -g browserify gulp-cli babel-node
+    $ npm install -g browserify gulp-cli babel
 
 install feb command-line tool: 
 
